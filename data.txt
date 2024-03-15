@@ -1,0 +1,12 @@
+#-------------------------------------------------
+# Gradient Descent Options
+#-------------------------------------------------
+[GradientDescent]
+    dim = 2
+    max_it = 100
+    tol_res = 1e-8
+    tol_step = 1e-8
+    learning_rate = 0.1
+    rate_rule = 'exponential decay'
+    fun = 'x*x*x + 5*x + 3'
+    dfun = '3*x*x + 5'
