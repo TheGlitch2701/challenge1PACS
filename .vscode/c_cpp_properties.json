@@ -3,9 +3,8 @@
         {
             "name": "Linux",
             "includePath": [
-                "/home/theglitch/challenge1PACS/muparser",
-                "${workspaceFolder}/json/include",
-                "${workspaceFolder}/muparser/include"
+                "${workspaceFolder}/lib/muparser/include",
+                "${workspaceFolder}/lib/muparserx/parser"
             ],
             "defines": [],
             "compilerPath": "/u/sw/toolchains/gcc-glibc/11.2.0/prefix/bin/gcc",

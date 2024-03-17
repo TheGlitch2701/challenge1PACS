@@ -6,8 +6,8 @@
 #include <vector>
 #include <iostream>
 #include "Point.hpp"
-#include "GetPot"
-#include "muparser_fun.hpp"
+#include "lib/GetPot"
+#include "muparserX_fun.hpp"
 
 /*double fun(const std::vector<double> &x){
     return x[0]*x[1] + 4*x[0]*x[0]*x[0]*x[0] + x[1]*x[1] + 3*x[0];
@@ -85,7 +85,7 @@ double norm(std::vector<double> &x){
 
 int main(int argc, char **argv){
 
-    std::vector<double> start_point = {0,0};
+    std::vector<float> start_point = {2,3};
 
     GetPot            command_line(argc, argv);
     const std::string filename = command_line.follow("data.txt", 2, "-f", "--file");
@@ -98,16 +98,20 @@ int main(int argc, char **argv){
     const double eps_res        = datafile((section + "tol_res").data(),1e-6);
     const double learning_rate  = datafile((section + "learning_rate").data(),0.1);
     const std::string rate_rule = datafile((section + "rate_rule").data(),"exponential decay");
+    const size_t dim      = datafile((section + "dim").data(),0);
 
-    std::string funString = datafile((section + "fun").data(), " ");
-    std::string dfunString = datafile((section + "dfun").data(), " ");
+    std::string funString       = datafile((section + "fun").data(), " ");
+    std::string dfunString      = datafile((section + "dfun").data(), " ");
     
+    Point start(dim,start_point);
 
-    MuparserFun fun(funString);
-    MuparserFun dfun(dfunString);
+    MuparserXFun fun(funString, start, dim);
+    MuparserXFun dfun(dfunString, start, dim);
 
-    std::cout << "Codice eseguito" << std::endl;
+    std::cout << "Codice eseguito: "<< std::endl;
 
+    fun(start);
+    dfun(start);
 
    /* GradientDescent(start_point,eps_step,eps_res,max_it,learning_rate);
 

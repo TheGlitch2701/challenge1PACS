@@ -2,7 +2,7 @@
 
 
 // CONSTRUCTORS OF POINT
-Point::Point(unsigned int dim, std::vector<double> &value)
+Point::Point(unsigned int dim, std::vector<float> &value)
 {
     this->n = dim;
     for(unsigned int i = 0; i < n; ++i)
@@ -17,7 +17,7 @@ Point::Point(unsigned int dim){
 
 
 // get and set function and other utility as print
-void Point::setPoints(const std::vector<double> &v){
+void Point::setPoints(const std::vector<float> &v){
     if(n != v.size()){
         std::cout << "Vectors have different sizes!!!"<<std::endl;
         return;
@@ -27,7 +27,7 @@ void Point::setPoints(const std::vector<double> &v){
 }
 
 
-const std::vector<double> Point::getPoints(){
+const std::vector<float> Point::getPoints(){
     return points;
 }
 
@@ -70,15 +70,15 @@ Point operator-(Point &a, Point &b)
         return Point(0);
     }
 
-    std::vector<double> aux;
+    std::vector<float> aux;
     for(size_t i = 0; i < a.getN(); ++i){
         aux.emplace_back(a.getPoints()[i] - b.getPoints()[i]);
     }
     return Point(a.getN(),aux);
 }
 
-Point operator*(double &a, Point &p){
-    std::vector<double> aux;
+Point operator*(float &a, Point &p){
+    std::vector<float> aux;
     for(size_t i = 0; i < p.getN(); ++i){
         aux.emplace_back(a*p.getPoints()[i]);
     }
