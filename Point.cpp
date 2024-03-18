@@ -15,6 +15,17 @@ Point::Point(unsigned int dim){
         this->points[i] = 0.;
 }
 
+/*Point::Point():
+n(2)
+{
+    for(unsigned int i = 0; i < n; ++i)
+        this->points[i] = 0.;
+}*/
+
+
+Point::Point(Point &p):
+n(p.n), points(p.points)
+{}
 
 // get and set function and other utility as print
 void Point::setPoints(const std::vector<float> &v){
@@ -24,6 +35,14 @@ void Point::setPoints(const std::vector<float> &v){
     }
     for(size_t i = 0; i < n; ++i)
         points[i] = v[i];
+}
+
+void Point::setPoint(const double &v, size_t &k){
+    if(k >= n){
+        std::cout << "Vectors have different sizes!!!"<<std::endl;
+        return;
+    }
+    points[k] = v;
 }
 
 
@@ -46,18 +65,18 @@ void Point::print()const {
     std::cout<<")"<<std::endl;
 }
 
-double Point::norm(Point &p){
+double Point::norm(){
     double sum = 0.;
 
-    for(size_t i = 0; i < p.getN(); ++i)
-        sum += p.getPoints()[i];
+    for(size_t i = 0; i < this->getN(); ++i)
+        sum += this->getPoints()[i];
     return sqrt(sum);
 }
 
 double Point::distance(Point &p1, Point &p2){
     
     Point diff = p1-p2;
-    return norm(diff);
+    return diff.norm();
     
 }
 

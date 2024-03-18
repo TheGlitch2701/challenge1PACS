@@ -12,13 +12,16 @@ class Point{
     public:
         Point(unsigned int,std::vector<float> &);
         Point(unsigned int);
+        Point(Point &);
+        //Point()=default;
 
         void setPoints(const std::vector<float> &);
+        void setPoint(const double &, size_t &);
         const std::vector<float>getPoints();
         const unsigned int getN();
 
         void print() const;
-        double norm(Point&);
+        double norm();
         double distance(Point &, Point &);
 };
 
