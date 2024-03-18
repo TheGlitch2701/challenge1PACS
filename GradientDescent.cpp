@@ -11,7 +11,7 @@
 
 int main(int argc, char **argv){
 
-    std::vector<float> start_point = {0,0};
+    std::vector<double> start_point = {0.,0.};
     std::vector<std::string> dfunsString; // This will be used to contain the function's gradients
 
     GetPot            command_line(argc, argv);
@@ -26,6 +26,8 @@ int main(int argc, char **argv){
     const double learning_rate  = datafile((section + "learning_rate").data(),0.1);
     const std::string rate_rule = datafile((section + "rate_rule").data(),"exponential decay");
     const size_t dim            = datafile((section + "dim").data(),0);
+    const double mu             = datafile((section + "mu").data(),0.2);
+    const double sigma          = datafile((section + "sigma").data(),0.25);
 
     std::string funString       = datafile((section + "fun").data(), " ");
     
@@ -44,22 +46,11 @@ int main(int argc, char **argv){
         dfuns.emplace_back(dfun);
     }
 
-    GradientDescentSolver solver(fun,dfuns,max_it,eps_step,eps_res,learning_rate,rate_rule);
-    std::cout << "Dopo la definizione del solver" << std::endl;
-    solver.Solver(start);
+    GradientDescentSolver solver(fun,dfuns,max_it,eps_step,eps_res,learning_rate,rate_rule,mu,sigma);
 
-    std::cout << "Dopo il solver" << std::endl;
+    double result = solver.Solver(start);
 
-    std::cout << "Value of the function in the last iteration: " << fun(start) << std::endl;
-
-    /*std::cout << "Codice eseguito: "<< fun(start) << std::endl;
-
-    for(size_t i = 0; i < dim; ++i){
-        std::cout << "Codice eseguito: "<< dfuns[i](start) << std::endl;
-    }*/
+    std::cout << "Value of the function in the last iteration: " << result << std::endl;
 
     return 0;
 }
-
-// NEED TO IMPLEMENT GETPOT & MUPARSERX AND THEN REFACTORY ALL THE CODE TO USE
-// MORE THAN 2 VARIABLES

@@ -3,11 +3,13 @@
 #-------------------------------------------------
 [GradientDescent]
     dim = 2
-    max_it = 100
-    tol_res = 1e-8
-    tol_step = 1e-8
+    max_it = 2000
+    tol_res = 1e-6
+    tol_step = 1e-6
     learning_rate = 0.1
-    rate_rule = 'exponential decay'
+    rate_rule = 'line search'
+    mu = 0.2
+    sigma = 0.45
     fun = 'x[0]*x[1] + 4*x[0]*x[0]*x[0]*x[0] + x[1]*x[1] + 3*x[0]'
     dfun0 = 'x[1] + 16*x[0]*x[0]*x[0] + 3'
     dfun1 = 'x[0] + 2*x[1]'

@@ -7,17 +7,17 @@
 class Point{
     private:
         unsigned int n = 2;
-        std::vector<float> points = {0.,0.};
+        std::vector<double> points = {0.,0.};
 
     public:
-        Point(unsigned int,std::vector<float> &);
+        Point(unsigned int,std::vector<double> &);
         Point(unsigned int);
         Point(Point &);
         //Point()=default;
 
-        void setPoints(const std::vector<float> &);
+        void setPoints(const std::vector<double> &);
         void setPoint(const double &, size_t &);
-        const std::vector<float>getPoints();
+        const std::vector<double>getPoints();
         const unsigned int getN();
 
         void print() const;
@@ -26,6 +26,6 @@ class Point{
 };
 
 Point operator-(Point &, Point &);
-Point operator*(float &, Point &);
+Point operator*(double &, Point &);
 
 #endif

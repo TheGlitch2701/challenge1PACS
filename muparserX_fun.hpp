@@ -38,19 +38,24 @@ public:
     
     mup::Variable m_variable(&m_arr);
 
+
+    /*This if statement is used to declarethe variables and the expression only once
+      otherwise it will raise an error after the execution of the solver*/
+    
     if(!this->flag){
-      //std::cout << "Prima di Var" << std::endl;
       m_parser.DefineVar("x", &m_variable);
-      //std::cout << "Prima di expr" << std::endl;
       m_parser.SetExpr(m_s);
       this->flag = true;
     }
     
-    //std::cout << "Prima di Eval" <<std::endl;
     result = m_parser.Eval();
 
     return result;
   };
+
+  const std::string getM_s(){
+    return m_s;
+  }
 
 private:
   const size_t      m_k;

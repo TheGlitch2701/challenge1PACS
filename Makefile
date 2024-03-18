@@ -9,10 +9,14 @@ LIBS  ?= -lmuparserx
 all: $(EXEC)
 
 %.o: %.cpp
+	$(RM) GradientDescent
 	$(CXX) -c Point.cpp GradientDescentSolver.cpp $(CPPFLAGS) $(CXXFLAGS) $<
 
 $(EXEC): %: %.o 
 	$(CXX) $(CXXFLAGS) Point.o GradientDescentSolver.o $(LDFLAGS) $< $(LIBS) -o $@
+	make clean
+	clear
+	./GradientDescent
 
 clean:
 	$(RM) *.o
