@@ -3,8 +3,11 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/lib/muparser/include",
-                "${workspaceFolder}/lib/muparserx/parser"
+                "${workspaceFolder}/lib/muparserx/parser",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/lib",
+                "${workspaceFolder}"
             ],
             "defines": [],
             "compilerPath": "/u/sw/toolchains/gcc-glibc/11.2.0/prefix/bin/gcc",

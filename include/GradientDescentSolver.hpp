@@ -8,7 +8,7 @@ class GradientDescentSolver{
     public:
             GradientDescentSolver(const MuparserXFun &, const std::vector<MuparserXFun> &,
             const unsigned int &, const double &, const double &,
-            const double &, const std::string &, const double &mu = 0.2, const double &sigma = 0.);
+            const double &, const std::string &, const double &mu = 0.2, const double &sigma = 0.25);
 
             double Solver(Point &);
 
@@ -16,7 +16,7 @@ class GradientDescentSolver{
 
             double exponentialDecay(const double &, const unsigned int &);
 
-            double lineSearch(Point &,const double &, Point &); // to be implemented
+            double lineSearch(Point &,const double &, Point &);
 
     private:
         MuparserXFun fun;

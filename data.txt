@@ -3,6 +3,7 @@
 #-------------------------------------------------
 [GradientDescent]
     dim = 2
+    start = '0 0'
     max_it = 2000
     tol_res = 1e-6
     tol_step = 1e-6

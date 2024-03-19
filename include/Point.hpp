@@ -13,8 +13,7 @@ class Point{
         Point(unsigned int,std::vector<double> &);
         Point(unsigned int);
         Point(Point &);
-        //Point()=default;
-
+        
         void setPoints(const std::vector<double> &);
         void setPoint(const double &, size_t &);
         const std::vector<double>getPoints();
