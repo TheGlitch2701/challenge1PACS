@@ -24,3 +24,4 @@ clean:
 distclean: clean
 	$(RM) *~
 	$(RM) GradientDescent
+	clear

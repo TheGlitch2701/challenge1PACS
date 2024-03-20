@@ -13,13 +13,11 @@ public:
   : m_parser(m.m_parser), m_s(m.m_s), m_k(m.m_k)
   {};
 
-  MuparserXFun(const std::string &s, Point &p,const size_t &k)
+  MuparserXFun(const std::string &s, const size_t &k)
   : m_k(k), m_s(s)
   {
     try
-      {
-      
-      }
+      {}
     catch (mup::ParserError &e)
       {
         std::cerr << e.GetMsg() << std::endl;

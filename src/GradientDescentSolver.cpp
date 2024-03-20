@@ -3,8 +3,9 @@
 /*CONSTRUCTOR of GradientDescentSolver*/
 GradientDescentSolver::GradientDescentSolver(const MuparserXFun &fun, const std::vector<MuparserXFun> &dfuns,
  const unsigned int &max_it, const double &eps_step, const double &eps_res, const double &a0, const std::string &rate_rule,
- const double &mu, const double &sigma)
-: fun(fun), max_it(max_it), eps_step(eps_step), eps_res(eps_res), a0(a0), rate_rule(rate_rule), mu(mu), sigma(sigma)
+ const double &mu, const double &sigma, const bool &exact, const double &h, const std::string &FDM_type)
+: fun(fun), max_it(max_it), eps_step(eps_step), eps_res(eps_res), a0(a0), rate_rule(rate_rule), mu(mu), sigma(sigma), 
+    exact(exact),h(h),FDM_type(FDM_type)
 {
     for(size_t i = 0; i < dfuns.size(); ++i)
         this->dfuns.emplace_back(dfuns[i]);
@@ -48,6 +49,67 @@ double GradientDescentSolver::lineSearch(Point &p, const double &sigma,Point &gr
     return ak;
 }
 
+double GradientDescentSolver::centeredDisc(Point &p, Point &prev, Point &succ, MuparserXFun &funct, size_t k){
+/*CENTERED DISCRETIZATION for Gradient*/
+
+    double aux = p.getPoints()[k];
+    prev.setPoint(aux - this->h,k);
+    succ.setPoint(aux + this->h,k);
+    
+    return (funct(succ) - funct(prev)) / (2*this->h);
+}
+
+double GradientDescentSolver::forwardDisc(Point &p, Point &succ, MuparserXFun &funct, size_t k){
+/*FORWARD DISCRETIZATION for Gradient*/
+    double aux = p.getPoints()[k];
+    succ.setPoint(aux + this->h,k);
+        
+    return (funct(succ) - funct(p)) / (this->h);
+}
+
+double GradientDescentSolver::backwardDisc(Point &p, Point &prev, MuparserXFun &funct, size_t k){
+/*BACKWARD DISCRETIZATION for Gradient*/
+    double aux = p.getPoints()[k];
+    prev.setPoint(aux - this->h,k);
+    
+    return (funct(p) - funct(prev)) / (this->h);
+}
+
+void GradientDescentSolver::finiteDifferencesMethod(Point &grad, Point &p, Point &step, double &ak){
+/*Compute the Finite Differences Method for the Gradient of
+the function when the exact gradient is not provided.
+This method has the same structure of the one with the
+Exact Gradient but it also compute the CD, FD or BD 
+of the Gradient in the for-loop*/
+
+    Point prev(p);
+    Point succ(p);
+    
+    MuparserXFun aux_fun(fun);
+    double aux = 0.;
+
+    for(size_t k = 0; k < grad.getN();++k){
+        if(this->FDM_type == "CD")
+            aux = centeredDisc(p,prev,succ,aux_fun,k);
+        else if(this->FDM_type == "FD")
+            aux = forwardDisc(p,succ,aux_fun,k);
+        else
+            aux = backwardDisc(p,prev,aux_fun,k);
+                        
+        grad.setPoint(aux,k);
+        p.setPoint(step.getPoints()[k] - ak * grad.getPoints()[k],k);
+    }
+}
+
+void GradientDescentSolver::exactGradientMethod(Point &gradients, Point &p, Point &step, double &ak){
+/*Compute the update of the vector of gradients by using
+the EXACT GRADIENT defined by the user in the data.txt file*/
+
+    for(size_t j = 0; j < this->dfuns.size(); ++j){
+        gradients.setPoint(dfuns[j](step),j);
+        p.setPoint(step.getPoints()[j] - ak * gradients.getPoints()[j],j);
+    }
+}
 
 /*This function compute the Gradient Descent Method starting from
 point p (user defined).
@@ -58,8 +120,6 @@ double GradientDescentSolver::Solver(Point &p){
         Point gradients(p.getPoints().size());
         size_t i = 0;
         double ak = this->a0;
-
-        rate_rule == "";
 
         unsigned int r;
 
@@ -74,17 +134,21 @@ double GradientDescentSolver::Solver(Point &p){
             return 0.;
         }
 
-        std::cout << "Minimizing the function:\n\n" + fun.getM_s() << "\n\nusing "<<rate_rule<<".\n"<<std::endl;
+        if(exact)
+            std::cout << "Minimizing the function:\n\n" + fun.getM_s() << "\n\nusing "<<rate_rule<<
+        " and exact gradient.\n"<<std::endl;
+        else
+            std::cout << "Minimizing the function:\n\n" + fun.getM_s() << "\n\nusing "<<rate_rule<<
+        " and Finite Differences Method for the Gradient: " + this->FDM_type<<".\n"<<std::endl;
 
         while(i < this->max_it){
         
         // Update of the vector of Gradients
         
-        for(size_t j = 0; j < this->dfuns.size(); ++j){
-            gradients.setPoint(dfuns[j](step),j);
-
-            p.setPoint(step.getPoints()[j] - ak * gradients.getPoints()[j],j);
-        }
+        if(this->exact)
+            exactGradientMethod(gradients,p,step,ak);
+        else
+            finiteDifferencesMethod(gradients,p,step,ak);
 
         /*See if convergence is reached*/
 
