@@ -57,9 +57,20 @@ This file was created to collect all the parameters needed by the Solver in orde
 
 - ``max_it``: maximum number of iterations that the GD Method might perform;
 
-- ``eps_res``: tolerance on the *Gradient Norm Convergence Criteria* *(See doc for further details)*;
+- ``tol_res``: tolerance on the *Gradient Norm Convergence Criteria* *(See doc for further details)*;
 
-- ``eps_step``: tolerance on the *Steps difference Norm Convergence Criteria* *(See doc for further details)*;
+- ``tol_step``: tolerance on the *Steps difference Norm Convergence Criteria* *(See doc for further details)*;
+
+- ``rate_rule``: updating rule for the learning rate. Here's the possibility *(See doc for further documentario)*:
+    - ``exponential decay``
+
+    - ``inverse decay``
+
+    - ``line search``
+
+- ``mu``: coefficient used for the ***exponential decay*** and ***inverse decay*** update *(See doc for further documentario)*;
+
+- ``sigma``: coefficient used for the ***line search*** update *(See doc for furter documentario)*;
 
 - ``fun``: the function to minimize. Need to be written between ``' '`` and each variable with the following rule ``x[i] i in {0, 1, 2, ..., N}``
 
