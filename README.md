@@ -49,6 +49,12 @@ In particular I want to focus on ``setPoint(double &, Point &)`` and ``setPoints
 
 This file was created to collect all the parameters needed by the Solver in order to do its work. Here I list all of them:
 
+- ``dim``: it expresses how many variables are used to define the function to minimize;
+
+- ``start``: it expresses the starting point of the GD Method. Need to be written between ``' '`` and with a **space** to separate each value;
+
+- ``learning rate``: starting rate for the Gradient's update;
+
 - ``max_it``: maximum number of iterations that the GD Method might perform;
 
 - ``eps_res``: tolerance on the *Gradient Norm Convergence Criteria* *(See doc for further details)*;
