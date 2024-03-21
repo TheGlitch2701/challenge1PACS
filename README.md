@@ -72,6 +72,17 @@ This file was created to collect all the parameters needed by the Solver in orde
 
 - ``sigma``: coefficient used for the ***line search*** update *(See doc for furter documentario)*;
 
+- ``exact``: ``1`` uses the gradient input by the user while ``0`` uses the Finite Differences Method to approximate the value of the gradient;
+
+- ``FDM_type``: if *exact = 0* the user may choose between:
+    - ``CD``: Centered Differences Method
+
+    - ``BD``: Backward Differences Method 
+
+    - ``FD``: Forwars Differences Method 
+
+- ``h``: constant used by the FDM to compute the value of the gradient;
+
 - ``fun``: the function to minimize. Need to be written between ``' '`` and each variable with the following rule ``x[i] i in {0, 1, 2, ..., N}``
 
 - ``dfunx0, dfubx1 ...``: the derivative of *fun* w.r.t. *x0, x1, x2, ...*. Of course it is needed to write all of them singularly
