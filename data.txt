@@ -8,11 +8,11 @@
     tol_res = 1e-6
     tol_step = 1e-6
     learning_rate = 0.1
-    rate_rule = 'exponential decay'
+    rate_rule = 'line search'
     mu = 0.2
     sigma = 0.45
     exact = 0
-    FDM_type = 'CD'
+    FDM_type = 'BD'
     h = 1e-6
     fun = 'x[0]*x[1] + 4*x[0]*x[0]*x[0]*x[0] + x[1]*x[1] + 3*x[0]'
     dfun0 = 'x[1] + 16*x[0]*x[0]*x[0] + 3'

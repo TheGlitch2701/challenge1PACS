@@ -262,7 +262,7 @@ Then for every test I ran I'll wirte down the specific parameters that I changed
 
     rate_rule = 'inverse decay' 
     exact = 0 (NOT using user defined gradient)
-    FDM_type : 'CD'
+    FDM_type : 'FD'
 
 **Results:**
 
@@ -270,7 +270,7 @@ Then for every test I ran I'll wirte down the specific parameters that I changed
 
     x[0]*x[1] + 4*x[0]*x[0]*x[0]*x[0] + x[1]*x[1] + 3*x[0]
 
-    using inverse decay and Finite Differences Method for the Gradient: CD.
+    using inverse decay and Finite Differences Method for the Gradient: FD.
 
     Gradient Descent converges in 65 iterations at the minimum: (-0.590551,0.295271)
     Value of the function in the last iteration: -1.37233
@@ -281,7 +281,7 @@ Then for every test I ran I'll wirte down the specific parameters that I changed
 
     rate_rule = 'line search' 
     exact = 0 (NOT using user defined gradient)
-    FDM_type : 'CD'
+    FDM_type : 'BD'
 
 **Results:**
 
@@ -289,9 +289,9 @@ Then for every test I ran I'll wirte down the specific parameters that I changed
 
     x[0]*x[1] + 4*x[0]*x[0]*x[0]*x[0] + x[1]*x[1] + 3*x[0]
 
-    using line search and Finite Differences Method for the Gradient: CD.
+    using line search and Finite Differences Method for the Gradient: BD.
 
-    Gradient Descent converges in 65 iterations at the minimum: (-0.590551,0.295271)
+    Gradient Descent converges in 65 iterations at the minimum: (-0.59055,0.295272)
     Value of the function in the last iteration: -1.37233
 
 ## 4. How to reproduce the results

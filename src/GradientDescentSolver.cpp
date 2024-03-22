@@ -84,17 +84,18 @@ of the Gradient in the for-loop*/
 
     Point prev(p);
     Point succ(p);
+    Point aux_p(p);
     
     MuparserXFun aux_fun(fun);
     double aux = 0.;
 
     for(size_t k = 0; k < grad.getN();++k){
         if(this->FDM_type == "CD")
-            aux = centeredDisc(p,prev,succ,aux_fun,k);
+            aux = centeredDisc(aux_p,prev,succ,aux_fun,k);
         else if(this->FDM_type == "FD")
-            aux = forwardDisc(p,succ,aux_fun,k);
+            aux = forwardDisc(aux_p,succ,aux_fun,k);
         else
-            aux = backwardDisc(p,prev,aux_fun,k);
+            aux = backwardDisc(aux_p,prev,aux_fun,k);
                         
         grad.setPoint(aux,k);
         p.setPoint(step.getPoints()[k] - ak * grad.getPoints()[k],k);
