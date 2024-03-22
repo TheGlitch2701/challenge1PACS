@@ -130,7 +130,7 @@ double GradientDescentSolver::Solver(Point &p){
         else if (this->rate_rule == "line search")
             r = 3;
         else{
-            std::cout << "Upgrading Method for the Learning Rate (a0) not valid!" << std::endl;
+            std::cout << "Updating Method for the Learning Rate (a0) not valid!" << std::endl;
             return 0.;
         }
 
