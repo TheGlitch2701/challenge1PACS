@@ -1,0 +1,12 @@
+set key noautotitle
+
+set title "Gradient Descent Points"
+set xlabel "x"
+set ylabel "y"
+set grid
+plot x1=y1=NaN "plot_script/points.dat" u (x0=x1,x1=$1,x0):(y0=y1,y1=$2,y0):(x1-x0):(0) \
+         w vec     head lw 2 lc "red", \
+         x1=y1=NaN    '' u (x0=x1,x1=$1):(y0=y1,y1=$2):      (0):    (y0-y1) \
+         w vec backhead lw 2 lc "red"
+
+pause -1 

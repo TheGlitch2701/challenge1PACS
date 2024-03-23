@@ -24,4 +24,5 @@ clean:
 distclean: clean
 	$(RM) *~
 	$(RM) GradientDescent
+	$(RM) plot_script/points.dat
 	clear

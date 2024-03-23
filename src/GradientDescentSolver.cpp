@@ -117,6 +117,8 @@ point p (user defined).
 See Challenge23-24-1.pdf for further documentation.*/
 double GradientDescentSolver::Solver(Point &p){
 
+        std::ofstream points_file("plot_script/points.dat");
+
         Point step = p;
         Point gradients(p.getPoints().size());
         size_t i = 0;
@@ -143,46 +145,55 @@ double GradientDescentSolver::Solver(Point &p){
         " and Finite Differences Method for the Gradient: " + this->FDM_type<<".\n"<<std::endl;
 
         while(i < this->max_it){
-        
-        // Update of the vector of Gradients
-        
-        if(this->exact)
-            exactGradientMethod(gradients,p,step,ak);
-        else
-            finiteDifferencesMethod(gradients,p,step,ak);
 
-        /*See if convergence is reached*/
+            if(points_file.is_open()){
+                for(size_t j = 0; j < p.getN(); ++j)
+                    points_file << p.getPoints()[j] << "\t";
+                points_file << "\n";
+            }else
+                std::cerr << "Error opening file!\n"<< std::endl;
+            
+            // Update of the vector of Gradients
+            
+            if(this->exact)
+                exactGradientMethod(gradients,p,step,ak);
+            else
+                finiteDifferencesMethod(gradients,p,step,ak);
 
-        if((p - step).norm() < this->eps_step or gradients.norm() < this->eps_res){
-            std::cout << "Gradient Descent converges in " << i << " iterations " <<
-            "at the minimum: ";
-            p.print();
-            return this->fun(p);
-        }
+            /*See if convergence is reached*/
 
-        // Next step 
+            if((p - step).norm() < this->eps_step or gradients.norm() < this->eps_res){
+                std::cout << "Gradient Descent converges in " << i << " iterations " <<
+                "at the minimum: ";
+                p.print();
+                points_file.close();
+                return this->fun(p);
+            }
 
-        ++i;
-        
-        // Choice of the Rate Rule
+            // Next step 
 
-        switch(r){
+            ++i;
+            
+            // Choice of the Rate Rule
 
-            case 1:
-                ak = this->exponentialDecay(this->a0,i);
+            switch(r){
 
-            case 2:
-                ak = this->inverseDecay(this->a0,i);
+                case 1:
+                    ak = this->exponentialDecay(this->a0,i);
 
-            case 3:
-                ak = this->lineSearch(step,this->sigma,gradients);
-        }
+                case 2:
+                    ak = this->inverseDecay(this->a0,i);
 
-        // Updating step = p (x_(k+1) = x_k)
+                case 3:
+                    ak = this->lineSearch(step,this->sigma,gradients);
+            }
 
-        step.setPoints(p.getPoints());
+            // Updating step = p (x_(k+1) = x_k)
+
+            step.setPoints(p.getPoints());
     }
 
     std::cout << "Gradient Descent doesn't converged in the maximum number of iterations ( " << i <<" )" << std::endl;
+    points_file.close();
     return this->fun(p);
 }

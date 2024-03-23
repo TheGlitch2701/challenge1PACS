@@ -1,5 +1,6 @@
 #include "Point.hpp"
 #include "muparserX_fun.hpp"
+#include <fstream>
 
 #ifndef GRADIENTDESCENTSOLVER_HPP_
 #define GRADIENTDESCENTSOLVER_HPP_

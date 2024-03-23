@@ -11,6 +11,8 @@ Going into the specific, the goal was to implement the main body of GD, some rat
 
 but the code I developed is able to compute the minimum (if ever) of any (at least polynomial) function.
 
+Moreover you can see the steps of the GD Method (unfortunately only for function in 2D) if you **firstly load the BOOST module**: ``module load boost`` and then type ``gnuplot plot_script/plot2D`` in your shell.
+
 See **Section 2** for more details on the implementation.
 
 See **Section 3** to see which results can be obtained with the function defined above.

@@ -14,7 +14,7 @@ int main(int argc, char **argv){
     /*Here we find the section related to the "READING FROM data.txt"*/
 
     GetPot            command_line(argc, argv);
-    const std::string filename = command_line.follow("data.txt", 2, "-f", "--file");
+    const std::string filename = command_line.follow("data_dir/data.txt", 2, "-f", "--file");
 
     GetPot            datafile(filename.c_str());
     const std::string section = "GradientDescent/";
