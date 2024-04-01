@@ -45,6 +45,10 @@ double GradientDescentSolver::lineSearch(Point &p, const double &sigma,Point &gr
         aux_p = p - aux_grad;
         lhs = aux_fun(p) - aux_fun(aux_p);
         rhs = this->sigma * ak * pow(grad.norm(),2);
+        //@note better set a maximum number of iterations to avoid infinite loops
+        // Even if Armijo should converge for sufficiently regular functions, 
+        // roud-off errors may cause the loop to be infinite in nasty situations.
+        // In which case you sto the search after a max number of interations.
     }while(lhs < rhs);
     return ak;
 }
@@ -90,6 +94,8 @@ of the Gradient in the for-loop*/
     double aux = 0.;
 
     for(size_t k = 0; k < grad.getN();++k){
+        //@note Even if a but more verbose, it is better not to have the if inside
+        // a tight loop. Moving the if externally makes the code more efficient
         if(this->FDM_type == "CD")
             aux = centeredDisc(aux_p,prev,succ,aux_fun,k);
         else if(this->FDM_type == "FD")
@@ -136,6 +142,8 @@ double GradientDescentSolver::Solver(Point &p){
             std::cout << "Updating Method for the Learning Rate (a0) not valid!" << std::endl;
             return 0.;
         }
+//@note it is better not to put outputs to the terminal from inside a low-level function
+// pass the results to the caller and print at a higher level. Exceptions: when debugging.
 
         if(exact)
             std::cout << "Minimizing the function:\n\n" + fun.getM_s() << "\n\nusing "<<rate_rule<<
