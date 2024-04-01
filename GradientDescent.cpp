@@ -8,7 +8,7 @@
 #include "muparserX_fun.hpp"
 #include "GradientDescentSolver.hpp"
 
-
+//@note nice, but if yoou have a main that accepts options it is nice to have the option -h that prints a short help
 int main(int argc, char **argv){
 
     /*Here we find the section related to the "READING FROM data.txt"*/

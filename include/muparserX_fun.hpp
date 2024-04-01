@@ -9,6 +9,8 @@
 class MuparserXFun
 {
 public:
+//@note initialization list does not follow the same order as the declaration
+// you get warnings for this. It is better to follow the same order.
   MuparserXFun(const MuparserXFun &m)
   : m_parser(m.m_parser), m_s(m.m_s), m_k(m.m_k)
   {};
