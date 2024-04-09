@@ -7,6 +7,7 @@
 
 class GradientDescentSolver{
     public:
+    //@note comment at least the main methods, maybe  using Doxygen type comments
             GradientDescentSolver(const MuparserXFun &, const std::vector<MuparserXFun> &,
             const unsigned int &, const double &, const double &,
             const double &, const std::string &, const double &mu = 0.2, const double &sigma = 0.25,
